@@ -1,0 +1,13 @@
+.popup__form-information {
+    border-width: 0 0 1px 0;
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 13.26px;
+}
+
+@media screen and (max-width:510px) {
+    .popup__form-information {
+        margin-bottom: 12px;
+    }
+}

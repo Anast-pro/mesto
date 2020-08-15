@@ -1,0 +1,7 @@
+.element__info {
+    margin: 0px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0px 0px 10px 10px;
+    padding: 25px 21px 31px 21px;
+}
