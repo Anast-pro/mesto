@@ -2,7 +2,6 @@
     color: #000000;
     background-color: #ffffff;
     width: 430px;
-    height: 330px;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
@@ -15,6 +14,5 @@
 @media screen and (max-width: 510px) {
     .popup__container {
         width: 240px;
-        height: 258px;
     }
 }
