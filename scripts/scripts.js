@@ -8,12 +8,10 @@ let nameInput = popup.querySelector('.popup__form-information_name');
 let aboutmeInput = popup.querySelector('.popup__form-information_aboutme');
 let formElement = popup.querySelector('.popup__form');
 
-/*let popupToggle = function() {
-    popup.classList.toggle('popup_opened');}*/
-
-
 let openPopup = function() {
     popup.classList.add('popup_opened');
+    nameInput.value = name.textContent;
+    aboutmeInput.value = aboutme.textContent;
 }
 
 let closePopup = function(event) {
@@ -25,7 +23,7 @@ function formSubmitHandler(event) {
     event.preventDefault();
     name.textContent = nameInput.value;
     aboutme.textContent = aboutmeInput.value;
-    popup.classList.remove('popup_opened');
+    closePopup(event);
 
 }
 
