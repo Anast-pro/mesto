@@ -1,33 +1,128 @@
-let editButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let popupCloseButton = popup.querySelector('.popup__close');
-let popupSubmitButton = popup.querySelector('.popup__submit');
-let name = document.querySelector('.profile__name');
-let aboutme = document.querySelector('.profile__aboutme');
-let nameInput = popup.querySelector('.popup__form-information_name');
-let aboutmeInput = popup.querySelector('.popup__form-information_aboutme');
-let formElement = popup.querySelector('.popup__form');
+const initialCards = [{
+        name: 'Алтай',
 
-let openPopup = function() {
-    popup.classList.add('popup_opened');
+        link: './images/evgenia-beletskaya-altai-unsplash.jpg'
+    },
+    {
+        name: 'Санкт-Петербург',
+        link: './images/azimbek-assarov-piter-unsplash.jpg'
+    },
+    {
+        name: 'Карачаевск',
+        link: './images/kirill-pershin-1088404-unsplash.jpg'
+    },
+    {
+        name: 'Эльбрус',
+        link: './images/kirill-pershin-1404681-unsplash.png'
+    },
+    {
+        name: 'Калининград',
+        link: './images/aleksey-malinovski-kU9eYVI3h5M-unsplash.jpg'
+    },
+    {
+        name: 'Сочи',
+        link: './images/Sochi-unsplash.jpg'
+    }
+];
+
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const profilePopup = document.querySelector('.popup_profile');
+const placePopup = document.querySelector('.popup_place');
+
+const popupCloseButtonProfile = document.querySelector('.popup__close_profile');
+const popupCloseButtonPlace = document.querySelector('.popup__close_place');
+const popupSubmitButton = document.querySelector('.popup__submit');
+const name = document.querySelector('.profile__name');
+const aboutme = document.querySelector('.profile__aboutme');
+const nameInput = document.querySelector('.popup__form-information_name');
+const aboutmeInput = document.querySelector('.popup__form-information_aboutme');
+const formProfile = document.querySelector('.popup__form');
+const formPLace = document.querySelector('.popup__form_place');
+const placename = document.querySelector('.placename');
+const placeimage = document.querySelector('.placeimage');
+const placenameInput = document.querySelector('.popup__form-information_placename');
+const placeimageInput = document.querySelector('.popup__form-information_placeimage');
+
+
+function openProfileForm(event) {
     nameInput.value = name.textContent;
     aboutmeInput.value = aboutme.textContent;
+    profilePopup.classList.add('popup_opened');
 }
 
-let closePopup = function(event) {
-    if (event.target !== event.currentTarget) return
-    popup.classList.remove('popup_opened');
+function openPlaceForm(event) {
+    placePopup.classList.add('popup_opened');
 }
+
+
+const closePopupProfile = function(event) {
+    if (event.target !== event.currentTarget) return
+    profilePopup.classList.remove('popup_opened');
+}
+
+const closePopupPlace = function(event) {
+    if (event.target !== event.currentTarget) return
+    placePopup.classList.remove('popup_opened');
+}
+
 
 function formSubmitHandler(event) {
     event.preventDefault();
     name.textContent = nameInput.value;
     aboutme.textContent = aboutmeInput.value;
-    closePopup(event);
+    closePopupProfile(event);
 
 }
 
-editButton.addEventListener('click', openPopup);
-popupCloseButton.addEventListener('click', closePopup);
-popup.addEventListener('click', closePopup);
-formElement.addEventListener('submit', formSubmitHandler);
+editButton.addEventListener('click', openProfileForm);
+addButton.addEventListener('click', openPlaceForm);
+profilePopup.addEventListener('click', closePopupProfile);
+placePopup.addEventListener('click', closePopupPlace);
+popupCloseButtonProfile.addEventListener('click', closePopupProfile);
+popupCloseButtonPlace.addEventListener('click', closePopupPlace);
+formProfile.addEventListener('submit', formSubmitHandler);
+
+
+const cardsTemplate = document.querySelector('#cards-container');
+
+const elementsContainer = document.querySelector('.elements');
+
+
+function addElement(element) {
+    const cardElement = cardsTemplate.content.cloneNode(true);
+
+    const photoElement = cardElement.querySelector('.element__photo');
+    const titleElement = cardElement.querySelector('.element__title');
+
+    photoElement.src = element.link;
+    titleElement.textContent = element.name;
+
+    const likeButton = cardElement.querySelector('.like');
+
+    function likeBtn(evt) {
+        evt.target.classList.toggle('like_active');
+    }
+    likeButton.addEventListener('click', likeBtn);
+
+    elementsContainer.prepend(cardElement);
+}
+
+initialCards.forEach(addElement);
+
+const trashElements = document.querySelectorAll('.element__trash');
+
+trashElements.forEach((trashElement) => trashElement.addEventListener('click', (event) => {
+    event.target.closest('.element').remove();
+    return cardsTemplate;
+}));
+
+
+function addNewElement(evt) {
+    evt.preventDefault();
+    const newCard = { name: placenameInput.value, link: placeimageInput.value };
+    cardsTemplate.prepend(addElement(newCard));
+    closePopupPlace(event);
+}
+
+formPLace.addEventListener('submit', addNewElement);
