@@ -25,6 +25,7 @@ const initialCards = [{
     }
 ];
 
+
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const profilePopup = document.querySelector('.popup_profile');
@@ -126,3 +127,27 @@ function addNewElement(evt) {
 }
 
 formPLace.addEventListener('submit', addNewElement);
+
+const card = document.querySelectorAll('.element');
+const fullImagePopup = document.querySelector('.popup_fullimage');
+let photoElement = document.querySelector('.element__photo');
+let popupImage = document.querySelector('.popup__image');
+let popupText = document.querySelector('.popup__title_image');
+let elementText = document.querySelector('.element__title');
+const popupCloseButtonImage = document.querySelector('.popup__close_fullscreen');
+let imageContainer = document.querySelector('.popup__container-image');
+
+function openImage(event) {
+    popupImage.src = this.src;
+    popupText.textContent = card.textContent;
+    fullImagePopup.classList.add('popup_opened');
+}
+
+function closePopupImage(event) {
+    if (event.target !== event.currentTarget) return
+    fullImagePopup.classList.remove('popup_opened');
+}
+
+photoElement.addEventListener('click', openImage);
+fullImagePopup.addEventListener('click', closePopupImage);
+popupCloseButtonImage.addEventListener('click', closePopupImage);

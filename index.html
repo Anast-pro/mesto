@@ -64,18 +64,24 @@
     </div>
 
     <template id="cards-container">
-            <div class="element element__bigsize">
+            <div class="element">
                 <button type="button" class="element__trash"></button>
                 <img class="element__photo">
                 <div class="element__info">
-                    <h2 class="element__title"></h2>
+                    <h2 class="element__title element__title_popup"></h2>
                     <button type="button" class="like"> </button>
                 </div>
                
             </div>
         </template>
 
-    <div class="popup popup_fullimage"></div>
+    <div class="popup popup_fullimage">
+        <div class='popup__container-image'>
+            <button type="button" class="popup__close popup__close_fullscreen"></button>
+            <img class='popup__image'>
+            <h3 class='popup__title popup__title_image'></h3>
+        </div>
+    </div>
 
     <script src="./scripts/scripts.js">
     </script>
