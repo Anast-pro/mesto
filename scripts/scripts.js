@@ -128,7 +128,7 @@ function addNewElement(evt) {
 
 formPLace.addEventListener('submit', addNewElement);
 
-const card = document.querySelectorAll('.element');
+const card = document.querySelector('.element');
 const fullImagePopup = document.querySelector('.popup_fullimage');
 let photoElement = document.querySelector('.element__photo');
 let popupImage = document.querySelector('.popup__image');
