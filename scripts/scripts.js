@@ -1,31 +1,3 @@
-const initialCards = [{
-        name: 'Алтай',
-
-        link: './images/evgenia-beletskaya-altai-unsplash.jpg'
-    },
-    {
-        name: 'Санкт-Петербург',
-        link: './images/azimbek-assarov-piter-unsplash.jpg'
-    },
-    {
-        name: 'Карачаевск',
-        link: './images/kirill-pershin-1088404-unsplash.jpg'
-    },
-    {
-        name: 'Эльбрус',
-        link: './images/kirill-pershin-1404681-unsplash.png'
-    },
-    {
-        name: 'Калининград',
-        link: './images/aleksey-malinovski-kU9eYVI3h5M-unsplash.jpg'
-    },
-    {
-        name: 'Сочи',
-        link: './images/Sochi-unsplash.jpg'
-    }
-];
-
-const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const profilePopup = document.querySelector('.popup_profile');
@@ -38,9 +10,9 @@ const nameInput = document.querySelector('.popup__form-information_name');
 const aboutMeInput = document.querySelector('.popup__form-information_aboutme');
 const formProfile = document.querySelector('.popup__form');
 const formPLace = document.querySelector('.popup__form_place');
-const placename = document.querySelector('.placename');
+const placeName = document.querySelector('.placename');
 const placeImage = document.querySelector('.placeimage');
-const placenameInput = document.querySelector('.popup__form-information_placename');
+const placeNameInput = document.querySelector('.popup__form-information_placename');
 const placeImageInput = document.querySelector('.popup__form-information_placeimage');
 const submitPlaceButton = document.querySelector('.popup__submit_place');
 const submitProfileButton = document.querySelector('.popup__submit_profile');
@@ -69,23 +41,12 @@ function openProfileForm() {
     openPopup(profilePopup);
 }
 
-function openPlaceForm() {
-    openPopup(placePopup);
-}
-
-function closePopupProfile() {
-    closePopup(popupCloseButtonProfile);
-}
-
-function closePopupPlace() {
-    closePopup(popupCloseButtonPlace);
-}
 
 function submitHandlerProfile(event) {
     event.preventDefault();
     name.textContent = nameInput.value;
     aboutMe.textContent = aboutMeInput.value;
-    closePopup(popupCloseButtonProfile);
+    closePopup(profilePopup);
 
 }
 
@@ -113,7 +74,7 @@ const getCardElement = (element) => {
 
 function addNewElement(event) {
     event.preventDefault();
-    const newCard = { name: placenameInput.value, link: placeImageInput.value };
+    const newCard = { name: placeNameInput.value, link: placeImageInput.value };
     elementsContainer.prepend(getCardElement(newCard));
     closePopup(placePopup);
 }
@@ -139,31 +100,27 @@ function openImage(event) {
     openPopup(fullImagePopup);
 }
 
-function closeImage() {
-    closePopup(popupCloseButtonImage);
-}
 
 
 formPLace.addEventListener('submit', addNewElement);
 editButton.addEventListener('click', openProfileForm);
-addButton.addEventListener('click', openPlaceForm);
+addButton.addEventListener('click', () => openPopup(placePopup));
 popupCloseButtonProfile.addEventListener('click', () => closePopup(profilePopup));
 popupCloseButtonPlace.addEventListener('click', () => closePopup(placePopup));
 formProfile.addEventListener('submit', submitHandlerProfile);
 popupCloseButtonImage.addEventListener('click', () => closePopup(fullImagePopup));
-submitPlaceButton.addEventListener('click', () => closePopup(placePopup));
-submitProfileButton.addEventListener('click', () => closePopup(profilePopup));
+
 profilePopup.addEventListener('click', () => {
     if (event.target !== event.currentTarget) return
-    profilePopup.classList.remove('popup_opened')
+    closePopup(profilePopup);
 });
 placePopup.addEventListener('click', () => {
     if (event.target !== event.currentTarget) return
-    placePopup.classList.remove('popup_opened')
+    closePopup(placePopup);
 });
 fullImagePopup.addEventListener('click', () => {
     if (event.target !== event.currentTarget) return
-    fullImagePopup.classList.remove('popup_opened')
+    closePopup(fullImagePopup);
 });
 
-//Спасибо большое за советы и ревью!) С "можно лучше" еще не всем разобралась, но спасибо за полезную информацию
+//Еще раз спасибо)
