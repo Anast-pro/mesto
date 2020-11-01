@@ -29,10 +29,19 @@ const Escape = "Escape";
 
 const openPopup = (popup) => {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEscape);
 };
 
+const closeByEscape = (evt) => {
+    if (evt.key === Escape) {
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
+    }
+}
+
 const closePopup = (popup) => {
-    popup.classList.remove('popup_opened')
+    popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEscape);
 
 };
 
@@ -88,8 +97,8 @@ const renderCards = () => {
 renderCards();
 
 
-function handleDeleteCard(trashElement) {
-    trashElement.target.closest('.element').remove();
+function handleDeleteCard(event) {
+    event.target.closest('.element').remove();
 }
 
 const openImage = (element) => {
@@ -99,6 +108,14 @@ const openImage = (element) => {
     openPopup(fullImagePopup);
 };
 
+const popups = document.querySelectorAll('.popup')
+popups.forEach((popup) => {
+    popup.addEventListener('click', (event) => {
+        if (event.target !== event.currentTarget) return
+        closePopup(popup);
+    });
+})
+
 
 formPLace.addEventListener('submit', addNewElement);
 editButton.addEventListener('click', openProfileForm);
@@ -107,28 +124,3 @@ popupCloseButtonProfile.addEventListener('click', () => closePopup(profilePopup)
 popupCloseButtonPlace.addEventListener('click', () => closePopup(placePopup));
 formProfile.addEventListener('submit', submitHandlerProfile);
 popupCloseButtonImage.addEventListener('click', () => closePopup(fullImagePopup));
-
-document.addEventListener('keydown', function(evt) {
-    if (evt.key === Escape) {
-        closePopup(placePopup);
-    }
-})
-
-document.addEventListener('keydown', function(evt) {
-    if (evt.key === "Escape") {
-        closePopup(profilePopup);
-    }
-})
-
-profilePopup.addEventListener('click', () => {
-    if (event.target !== event.currentTarget) return
-    closePopup(profilePopup);
-});
-placePopup.addEventListener('click', () => {
-    if (event.target !== event.currentTarget) return
-    closePopup(placePopup);
-});
-fullImagePopup.addEventListener('click', () => {
-    if (event.target !== event.currentTarget) return
-    closePopup(fullImagePopup);
-});
