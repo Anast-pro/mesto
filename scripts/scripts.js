@@ -33,6 +33,7 @@ const openPopup = (popup) => {
 
 const closePopup = (popup) => {
     popup.classList.remove('popup_opened')
+
 };
 
 function openProfileForm() {
