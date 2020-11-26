@@ -1,6 +1,5 @@
-const initialCards = [{
+export const initialCards = [{
         name: 'Алтай',
-
         link: './images/evgenia-beletskaya-altai-unsplash.jpg'
     },
     {
