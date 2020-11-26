@@ -1,23 +1,3 @@
-const Escape = "Escape";
-
-const openPopup = (popup) => {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closeByEscape);
-};
-
-const closeByEscape = (evt) => {
-    if (evt.key === Escape) {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup);
-    }
-};
-
-const closePopup = (popup) => {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeByEscape);
-
-};
-
 export default class Card {
     constructor(data, templateSelector) {
 
@@ -39,6 +19,26 @@ export default class Card {
         const fullImagePopup = document.querySelector('.popup_fullimage');
         const popupImage = document.querySelector('.popup__image');
         const popupText = document.querySelector('.popup__title_image');
+
+        const Escape = "Escape";
+
+        const openPopup = (popup) => {
+            popup.classList.add('popup_opened');
+            document.addEventListener('keydown', closeByEscape);
+        };
+
+        const closeByEscape = (evt) => {
+            if (evt.key === Escape) {
+                const openedPopup = document.querySelector('.popup_opened');
+                closePopup(openedPopup);
+            }
+        };
+
+        const closePopup = (popup) => {
+            popup.classList.remove('popup_opened');
+            document.removeEventListener('keydown', closeByEscape);
+
+        };
 
 
         popupImage.src = this._link;
