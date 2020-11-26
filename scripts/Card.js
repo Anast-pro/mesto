@@ -1,3 +1,5 @@
+const Escape = "Escape";
+
 const openPopup = (popup) => {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeByEscape);
@@ -8,6 +10,12 @@ const closeByEscape = (evt) => {
         const openedPopup = document.querySelector('.popup_opened');
         closePopup(openedPopup);
     }
+};
+
+const closePopup = (popup) => {
+    popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEscape);
+
 };
 
 export default class Card {
