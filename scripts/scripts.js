@@ -17,18 +17,13 @@ const formProfile = document.querySelector('.popup__form');
 const formPLace = document.querySelector('.popup__form_place');
 const placeNameInput = document.querySelector('.popup__form-information_placename');
 const placeImageInput = document.querySelector('.popup__form-information_placeimage');
-const submitPlaceButton = document.querySelector('.popup__button_place');
-const submitProfileButton = document.querySelector('.popup__button_profile');
 const fullImagePopup = document.querySelector('.popup_fullimage');
+const popupCloseButtonImage = document.querySelector('.popup__close_fullscreen');
+const elementsContainer = document.querySelector('.elements');
+const escape = "Escape";
+const error = document.querySelector('.error');
 const popupImage = document.querySelector('.popup__image');
 const popupText = document.querySelector('.popup__title_image');
-const elementText = document.querySelector('.element__title');
-const popupCloseButtonImage = document.querySelector('.popup__close_fullscreen');
-const imageContainer = document.querySelector('.popup__container-image');
-const elementsContainer = document.querySelector('.elements');
-const Escape = "Escape";
-const error = document.querySelector('.error');
-
 
 
 const openPopup = (popup) => {
@@ -43,19 +38,27 @@ const openPopup = (popup) => {
                 submitButtonSelector: "." + buttonClass,
                 inactiveButtonClass: 'popup__button_disabled',
                 inputErrorClass: 'popup__input-invalid',
-            }, inputElement).enableValidation()
-        })
+            }, inputElement).enableValidation();
+        });
 
-    })
+    });
     document.addEventListener('keydown', closeByEscape);
 };
 
+export function openImage(name, link) {
+    popupImage.src = link;
+    popupImage.alt = name;
+    popupText.textContent = name;
+    openPopup(fullImagePopup);
+};
+
+
 const closeByEscape = (evt) => {
-    if (evt.key === Escape) {
+    if (evt.key === escape) {
         const openedPopup = document.querySelector('.popup_opened');
         closePopup(openedPopup);
     }
-}
+};
 
 const closePopup = (popup) => {
     error.textContent = "";
@@ -78,10 +81,9 @@ function submitHandlerProfile(event) {
     closePopup(profilePopup);
 }
 
-const renderCards = (cardElement) => {
+const renderCards = () => {
     const cards = initialCards.map(cardElement =>
         new Card(cardElement, '#cards-container').getCardElement()
-
     );
     elementsContainer.prepend(...cards);
 };
@@ -97,13 +99,14 @@ function addNewElement(event) {
     closePopup(placePopup);
 }
 
-const popups = document.querySelectorAll('.popup')
+const popups = document.querySelectorAll('.popup');
+
 popups.forEach((popup) => {
     popup.addEventListener('click', (event) => {
         if (event.target !== event.currentTarget) return
         closePopup(popup);
     });
-})
+});
 
 formPLace.addEventListener('submit', addNewElement);
 editButton.addEventListener('click', openProfileForm);

@@ -1,3 +1,5 @@
+import { openImage } from './scripts.js'
+
 export default class Card {
     constructor(data, templateSelector) {
 
@@ -8,48 +10,16 @@ export default class Card {
 
     _deleteCardElement() {
         this._content.remove();
-    };
+    }
 
     _toggleLike() {
         this._content.querySelector('.like').classList.toggle('like_active');
-    };
-
-    _openImage() {
-
-        const fullImagePopup = document.querySelector('.popup_fullimage');
-        const popupImage = document.querySelector('.popup__image');
-        const popupText = document.querySelector('.popup__title_image');
-
-        const Escape = "Escape";
-
-        const openPopup = (popup) => {
-            popup.classList.add('popup_opened');
-            document.addEventListener('keydown', closeByEscape);
-        };
-
-        const closeByEscape = (evt) => {
-            if (evt.key === Escape) {
-                const openedPopup = document.querySelector('.popup_opened');
-                closePopup(openedPopup);
-            }
-        };
-
-        const closePopup = (popup) => {
-            popup.classList.remove('popup_opened');
-            document.removeEventListener('keydown', closeByEscape);
-
-        };
-
-
-        popupImage.src = this._link;
-        popupImage.alt = this._name;
-        popupText.textContent = this._name;
-        openPopup(fullImagePopup);
-    };
+    }
 
     getCardElement() {
         this._content = this._cardsTemplate.cloneNode(true);
-        this._content.querySelector('.element__photo').src = this._link;
+        const photoElement = this._content.querySelector('.element__photo');
+        photoElement.src = this._link;
         this._content.querySelector('.element__title').textContent = this._name;
 
         this._content
@@ -62,13 +32,11 @@ export default class Card {
             .querySelector('.like')
             .addEventListener('click', () => this._toggleLike());
 
-        this._content
-            .querySelector('.element__photo')
-            .addEventListener('click', () => this._openImage());
+        photoElement.addEventListener('click', () => openImage(this._name, this._link));
 
         return this._content;
-    };
-
-
+    }
 
 }
+
+//Спасибо большое за ревью) Особенно, за помощь с точками с запятой))

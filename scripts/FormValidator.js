@@ -23,7 +23,7 @@ export default class FormValidator {
         } else {
             this._showError();
         }
-    };
+    }
 
     _toggleButtonState() {
         if (this._element.checkValidity()) {
@@ -35,19 +35,19 @@ export default class FormValidator {
         }
     }
     _setEventListeners() {
-        this._element.addEventListener('input', (evt) => {
+        this._element.addEventListener('input', () => {
             this._checkInputValidity();
             this._toggleButtonState();
         });
 
         this._toggleButtonState();
-    };
+    }
 
     enableValidation() {
         this._element.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
         this._setEventListeners();
-    };
+    }
 
 }
