@@ -1,5 +1,3 @@
-import PopupWithImage from './PopupWithImage.js';
-
 export default class Card {
     constructor({ data, handleCardClick }, templateSelector) {
 
@@ -17,10 +15,6 @@ export default class Card {
         this._content.querySelector('.like').classList.toggle('like_active');
     }
 
-
-    handleCardClick = (name, link) => {
-        this._image.addEventListener('click', () => popupWithImage.open(name, link))
-    }
 
     getCardElement() {
         this._content = this._cardsTemplate.cloneNode(true);

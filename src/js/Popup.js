@@ -1,45 +1,26 @@
-const esc = "Escape";
-
-import FormValidator from './FormValidator.js';
+const ESC_KEY = "Escape";
 
 export default class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
         this._closeButton = this._popup.querySelector('.popup__close');
+        this._handleEscClose = this._handleEscClose.bind(this);
     }
 
     open() {
         this._popup.classList.add('popup_opened');
-
-        const formList = Array.from(this._popup.querySelectorAll('.popup__form'));
-        formList.forEach((form) => {
-            const buttonClass = form.querySelector('.popup__button').classList[1];
-            const inputList = Array.from(form.querySelectorAll('.popup__input'));
-            inputList.forEach((inputElement) => {
-                new FormValidator({
-                    submitButtonSelector: "." + buttonClass,
-                    inactiveButtonClass: 'popup__button_disabled',
-                    inputErrorClass: 'popup__input-invalid',
-                }, inputElement).enableValidation();
-            });
-
-        });
-
-
-        document.addEventListener('keydown', evt => this._handleEscClose(evt));
-
-        this._popup.addEventListener('click', evt => this._handleOverlayClose(evt));
-
-        this.setEventListeners(this._popup);
+        document.addEventListener('keydown', this._handleEscClose);
 
     }
 
     close() {
         this._popup.classList.remove('popup_opened');
+        document.removeEventListener('keydown', this._handleEscClose)
     }
 
     _handleEscClose(evt) {
-        if (evt.key === esc) {
+        if (evt.key === ESC_KEY) {
+
             this.close();
         }
     }
@@ -53,6 +34,8 @@ export default class Popup {
     setEventListeners() {
 
         this._closeButton.addEventListener('click', evt => this.close(evt));
+        this._popup.addEventListener('click', evt => this._handleOverlayClose(evt));
+
 
     }
 }
