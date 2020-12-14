@@ -1,0 +1,17 @@
+ .profile__edit-avatar {
+     background-image: url('../../../images/brush.svg');
+     background-repeat: no-repeat;
+     background-position: center;
+     background-color: rgba(0, 0, 0, 0.8);
+     background-size: 26px;
+     width: 120px;
+     height: 120px;
+     position: absolute;
+     opacity: 0;
+     transition: opacity 0.1s;
+ }
+ 
+ .profile__edit-avatar:hover {
+     opacity: 1;
+     z-index: 10;
+ }
