@@ -3,6 +3,7 @@ export default class FormValidator {
         this._settings = settings;
         this._element = element;
         this._buttonElement = document.querySelector(this._settings.submitButtonSelector);
+        this._inputList = Array.from(document.querySelectorAll('.popup__input'));
     }
 
     _showError() {
@@ -50,4 +51,6 @@ export default class FormValidator {
         });
         this._setEventListeners();
     }
+
+
 }

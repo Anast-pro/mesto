@@ -20,7 +20,6 @@ const avatarSubmitButton = document.querySelector('.popup__button_avatar');
 const profileSubmitButton = document.querySelector('.popup__button_profile');
 const placeSubmitButton = document.querySelector('.popup__button_place');
 
-
 const profilePopup = new PopupWithForm('.popup_profile', formEditSubmitHandler);
 profilePopup.setEventListeners();
 const placePopup = new PopupWithForm('.popup_place', addNewElement);
@@ -33,6 +32,8 @@ const confirmationPopup = new PopupWithConfirmation('.popup_confirmation', formD
 confirmationPopup.setEventListeners();
 const userInfo = new UserInfo('.profile__name', '.profile__aboutme', '.profile__avatar');
 
+
+
 const api = new API({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
     headers: {
@@ -40,6 +41,29 @@ const api = new API({
         'Content-Type': 'application/json'
     }
 });
+
+function prependInfo() {
+    Promise.all([
+            api.getUserInfo(),
+            api.getCards()
+
+        ])
+        .then((values) => {
+            const [res, items] = values;
+            const info = {
+                name: res.name,
+                userMainInfo: res.about,
+                avatar: res.avatar
+            }
+            userInfo.setUserInfo(info);
+            cardList.renderItems(items);
+            return values
+        })
+        .catch((error) =>
+            console.log(error));
+}
+
+prependInfo();
 
 const setButtonText = (button, text) => {
     button.textContent = text;
@@ -89,31 +113,13 @@ function addNewElement(name, link) {
     api.addCard(name, link)
         .then((res) => {
             cardList.addItem(cardCreation(res));
+            placePopup.close();
         })
         .catch((error) => console.log(error))
         .finally(() => setButtonText(placeSubmitButton, 'Сохранить'))
-    placePopup.close();
+
+
 }
-
-
-
-api.getCards()
-    .then((items) => {
-        cardList.renderItems(items);
-    })
-    .catch(error => console.log(error));
-
-
-api.getUserInfo()
-    .then((res) => {
-        const info = {
-            name: res.name,
-            userMainInfo: res.about,
-            avatar: res.avatar
-        }
-        userInfo.setUserInfo(info)
-    })
-    .catch((error) => console.log(error));
 
 
 
@@ -132,13 +138,12 @@ function formEditSubmitHandler(name, userMainInfo, avatar) {
                 userMainInfo: res.about,
                 avatar: res.avatar
             }
-            userInfo.setUserInfo(info)
+            userInfo.setUserInfo(info);
+            profilePopup.close();
         })
         .catch((error) => console.log(error))
         .finally(() => setButtonText(profileSubmitButton, 'Сохранить'))
 
-    userInfo.setUserInfo(info);
-    profilePopup.close();
 }
 
 function formEditAvatarSubmitHandler(info) {
@@ -150,28 +155,26 @@ function formEditAvatarSubmitHandler(info) {
                 userMainInfo: res.about,
                 avatar: res.avatar
             }
-            userInfo.setUserInfo(info)
+            userInfo.setUserInfo(info);
+            avatarPopup.close();
         })
         .catch((error) => console.log(error))
-        .finally(() => setButtonText(avatarSubmitButton, 'Сохранить'))
-    userInfo.setUserInfo(info);
-    avatarPopup.close()
-
-
+        .finally(() => setButtonText(avatarSubmitButton, 'Сохранить'));
 }
 
 function formDeleteSubmitHandler(item) {
     setButtonText(confirmationDeleteButton, 'Удаление...');
     api.deleteCard(item._cardId, item._ownerCardId)
         .then(() => {
-            item.deleteCard()
+            item.deleteCard();
+            confirmationPopup.close();
         })
 
     .catch((error) => console.log(error))
         .finally(() => {
             setButtonText(confirmationDeleteButton, 'Да');
         })
-    confirmationPopup.close();
+
 }
 
 editButton.addEventListener('click', () => profilePopup.open());
@@ -199,4 +202,4 @@ formList.forEach((form) => {
         }, inputElement).enableValidation();
     });
 
-});
+})
