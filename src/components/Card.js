@@ -25,8 +25,6 @@ export default class Card {
         this._element.remove();
     }
 
-
-
     checkLike() {
         return this._likeButton.classList.contains('element__like_active')
     }
@@ -54,7 +52,6 @@ export default class Card {
         this._element.querySelector('.element__title').textContent = this._name;
         this._photoElement.src = this._link;
         this._photoElement.alt = this._name;
-
 
 
         if (this._ownerCardId !== this._userId) {
