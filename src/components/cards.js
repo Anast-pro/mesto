@@ -10,9 +10,6 @@ import kirillPershin2Image from '../images/kirill-pershin-1404681-unsplash.png';
 
 import sochiImage from '../images/Sochi-unsplash.jpg'
 
-
-
-
 export const initialCards = [{
         name: 'Алтай',
         link: evgeniaBeletskayaImage
