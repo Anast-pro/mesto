@@ -189,7 +189,6 @@ editButton.addEventListener('click', () => {
 });
 
 
-
 const formList = Array.from(document.querySelectorAll('.popup__form'));
 formList.forEach((form) => {
     const buttonClass = form.querySelector('.popup__button').classList[1];
