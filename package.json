@@ -18,8 +18,7 @@
     "bugs": {
         "url": "https://github.com/Anast-pro/mesto/issues"
     },
-   // "homepage": "https://github.com/Anast-pro/mesto#readme",
-    "homepage": "./",
+   "homepage": "https://github.com/Anast-pro/mesto",
     "devDependencies": {
         "@babel/core": "^7.12.9",
         "@babel/plugin-proposal-class-properties": "^7.12.1",
